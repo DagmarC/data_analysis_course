@@ -1,0 +1,34 @@
+*.pdf
+
+# --- 2. Data ---
+*.csv
+*.xls
+*.xlsx
+*.json
+*.txt
+
+# --- 3. Python a Prostredie ---
+# Kompilované súbory
+__pycache__/
+*.py[cod]
+
+# Virtuálne prostredia
+venv/
+env/
+.env
+.venv/
+
+# --- 4. Jupyter Notebooky ---
+# Checkpointy (automatické zálohy notebookov)
+.ipynb_checkpoints/
+
+# --- 5. Vygenerované obrázky (Grafy) ---
+*.png
+*.jpg
+*.jpeg
+*.svg
+
+# --- 6. Operačný systém a editory ---
+.DS_Store
+.vscode/
+.idea/
