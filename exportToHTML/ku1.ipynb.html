@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>ku1.ipynb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808;}
+.s1 { color: #0033b3;}
+.s2 { color: #8c8c8c; font-style: italic;}
+.s3 { color: #1750eb;}
+.s4 { color: #067d17;}
+.s5 { color: #0037a6;}
+.ls0 { height: 1px; border-width: 0; color: #dfe1e5; background-color:#dfe1e5}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ku1.ipynb</font>
+</center></td></tr></table>
+<pre><span class="s0">#%% 
+</span><span class="s1">import </span><span class="s0">numpy </span><span class="s1">as </span><span class="s0">np</span>
+<span class="s1">import </span><span class="s0">scipy.stats </span><span class="s1">as </span><span class="s0">stats</span><hr class="ls0"><span class="s0">#%% 
+</span><span class="s2"># Set simulation</span>
+<span class="s0">experiment_count = </span><span class="s3">100</span>
+<span class="s0">sample_size = </span><span class="s3">30 </span><span class="s2"># pocet merani v jednom experimente</span>
+<span class="s0">real_mean = </span><span class="s3">50 </span><span class="s2"># Pravda, kt. poznam</span>
+<span class="s0">alpha = </span><span class="s3">0.05 </span><span class="s2"># hladina vyznamnosti</span>
+
+<span class="s0">p_values = []</span>
+<span class="s0">err_one_count = </span><span class="s3">0</span>
+
+<span class="s0">print(</span><span class="s4">f&quot;Running experiment </span><span class="s5">{</span><span class="s0">experiment_count</span><span class="s5">} </span><span class="s4">times...&quot;</span><span class="s0">)</span>
+<span class="s0">print(</span><span class="s4">f&quot;Real mean: </span><span class="s5">{</span><span class="s0">real_mean</span><span class="s5">}</span><span class="s4">. Test hypothesis H0: mi_0 = </span><span class="s5">{</span><span class="s0">real_mean</span><span class="s5">}</span><span class="s4">&quot;</span><span class="s0">)</span>
+
+<span class="s2">#np.random.seed(42) # everytime the same &quot;random&quot; experiment - reproducibility</span>
+
+<span class="s1">for </span><span class="s0">i </span><span class="s1">in </span><span class="s0">range(experiment_count):</span>
+    <span class="s2"># Generate data from KNOWN population - H0 is correct</span>
+    <span class="s0">data = np.random.normal(loc=real_mean, scale=</span><span class="s3">10</span><span class="s0">, size=sample_size)</span>
+
+    <span class="s2"># T-test</span>
+    <span class="s0">t_stat, p_val = stats.ttest_1samp(data, popmean=real_mean)</span>
+    <span class="s0">p_values.append(p_val)</span>
+
+    <span class="s2"># Decide</span>
+    <span class="s1">if </span><span class="s0">p_val &lt; alpha:</span>
+        <span class="s0">err_one_count += </span><span class="s3">1</span>
+
+<span class="s0">print(</span><span class="s4">&quot;-&quot; </span><span class="s0">* </span><span class="s3">30</span><span class="s0">)</span>
+<span class="s0">print(</span><span class="s4">f&quot;Total number of error of 1. kind: </span><span class="s5">{</span><span class="s0">err_one_count</span><span class="s5">} </span><span class="s4">z </span><span class="s5">{</span><span class="s0">experiment_count</span><span class="s5">}</span><span class="s4">&quot;</span><span class="s0">)</span>
+<span class="s0">print(</span><span class="s4">f&quot;Percentuálna chybovosť: </span><span class="s5">{</span><span class="s0">err_one_count / experiment_count * </span><span class="s3">100</span><span class="s5">}</span><span class="s4">%&quot;</span><span class="s0">)</span>
+<span class="s0">print(</span><span class="s4">f&quot;Expected error (alpha): </span><span class="s5">{</span><span class="s0">alpha * </span><span class="s3">100</span><span class="s5">}</span><span class="s4">%&quot;</span><span class="s0">)</span></pre>
+</body>
+</html>
